@@ -1,33 +1,47 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+//add DI to the project
+
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using Presentation.Commands;
+using Presentation.Extensions;
+
+var services = new ServiceCollection();
+services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());    
+});
+services.AddCrudCommands();
+var serviceProvider = services.BuildServiceProvider();
 
 try
 {
-    await RunApplication(args);
+    await RunApplication(args,serviceProvider);
 }
 catch (Exception ex)
 {
     Console.WriteLine(ex.Message);
 }
 
-async Task RunApplication(string[] args)
+async Task RunApplication(string[] args, IServiceProvider serviceProvider)
 {
     switch (args[0])
     {
         case "-add":
-            await new AddCommand().Execute(args);
+            await serviceProvider.GetRequiredService<AddEmployee>().Execute(args);
             break;
         case "-update":
-            await new UpdateCommand().Execute(args);
+            await serviceProvider.GetRequiredService<UpdateEmployee>().Execute(args);
             break;
         case "-delete":
-            await new DeleteCommand().Execute(args);
+            await serviceProvider.GetRequiredService<DeleteEmployee>().Execute(args);
             break;
         case "-get":
-            await new GetCommand().Execute(args);
+            await serviceProvider.GetRequiredService<GetEmployee>().Execute(args);
             break;
         case "-getall":
-            await new GetAllCommand().Execute(args);
+            await serviceProvider.GetRequiredService<GetAllEmployees>().Execute(args);
             break;
         default:
             Console.WriteLine("Unknown command");
