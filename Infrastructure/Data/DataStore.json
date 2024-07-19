@@ -1,0 +1,16 @@
+{
+  "employeeDataModel": [
+    {
+      "id": 0,
+      "firstName": "John",
+      "lastName": "Doe",
+      "salaryPerHour": 100.5
+    },
+    {
+      "id": 1,
+      "firstName": "James",
+      "lastName": "Doe",
+      "salaryPerHour": 0.0
+    }
+  ]
+}

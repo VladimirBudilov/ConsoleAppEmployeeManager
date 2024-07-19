@@ -1,32 +1,42 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Repositories;
+using Infrastructure.Data;
+using Infrastructure.DataModels;
 
 namespace Infrastructure.Repositories;
 
-public class EmployeeRepository : IEmployeeRepository
+public class EmployeeRepository(JsonDataContext context, IMapper mapper) : IEmployeeRepository
 {
     public Task<Employee> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var employeeDataModel = context.store.GetCollection<EmployeeDataModel>().AsQueryable().FirstOrDefault(e => e.Id == id);
+        var employee = mapper.Map<Employee>(employeeDataModel);
+        return Task.FromResult(employee);
     }
 
     public Task<IEnumerable<Employee>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var employeesModels =  context.store.GetCollection<EmployeeDataModel>().AsQueryable().ToList();
+        var employees = employeesModels.Select(e => mapper.Map<Employee>(e));
+        return Task.FromResult(employees);
     }
 
     public Task<int> AddAsync(Employee employee)
     {
-        throw new NotImplementedException();
+        var employeeDataModel = mapper.Map<EmployeeDataModel>(employee);
+        var isSuccess = context.store.GetCollection<EmployeeDataModel>().InsertOne(employeeDataModel);
+        return Task.FromResult(employeeDataModel.Id);
     }
 
-    public Task UpdateAsync(Employee employee)
+    public async Task UpdateAsync(Employee employee)
     {
-        throw new NotImplementedException();
+        var employeeDataModel = mapper.Map<EmployeeDataModel>(employee);
+        var isSuccess = await context.store.GetCollection<EmployeeDataModel>().ReplaceOneAsync(e => e.Id == employeeDataModel.Id, employeeDataModel);
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var isSuccess = await context.store.GetCollection<EmployeeDataModel>().DeleteOneAsync(e => e.Id == 1);
     }
 }

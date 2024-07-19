@@ -7,7 +7,13 @@ namespace Presentation.Extensions;
 
 public static class PresentationServiceExtension
 {
-    public static void RegisterCommands(this IServiceCollection services)
+    public static void RegisterPresentationServices(this IServiceCollection services)
+    {
+        services.RegisterCommands();
+        services.RegisterParsersAndValidators();
+    }
+
+    private static void RegisterCommands(this IServiceCollection services)
     {
         services.AddTransient<AddEmployee>();
         services.AddTransient<DeleteEmployee>();
@@ -15,8 +21,8 @@ public static class PresentationServiceExtension
         services.AddTransient<GetEmployee>();
         services.AddTransient<UpdateEmployee>();
     }
-    
-    public static void RegisterParsersAndValidators(this IServiceCollection services)
+
+    private static void RegisterParsersAndValidators(this IServiceCollection services)
     {
         services.AddTransient<ArgsParser>();
         services.AddTransient<IdParser>();

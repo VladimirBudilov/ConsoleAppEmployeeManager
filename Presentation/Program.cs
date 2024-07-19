@@ -2,17 +2,18 @@
 
 //add DI to the project
 
-using System.Reflection;
-using Application.ServiceCollection;
+using Application.DI;
+using Infrastructure.DI;
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.Commands;
 using Presentation.Extensions;
 
 var services = new ServiceCollection();
 
-services.RegisterMediatrCommands();
-services.RegisterCommands();
-services.RegisterParsersAndValidators();
+services.RegisterApplicationServices();
+services.RegisterPresentationServices();
+services.RegisterInfrastructureServices();
+
 var serviceProvider = services.BuildServiceProvider();
 
 
@@ -26,24 +27,24 @@ catch (Exception ex)
 }
 
 
-async Task RunApplication(string[] args, IServiceProvider serviceProvider)
+async Task RunApplication(string[] args, IServiceProvider provider)
 {
     switch (args[0])
     {
         case "-add":
-            await serviceProvider.GetRequiredService<AddEmployee>().Execute(args);
+            await provider.GetRequiredService<AddEmployee>().Execute(args);
             break;
         case "-update":
-            await serviceProvider.GetRequiredService<UpdateEmployee>().Execute(args);
+            await provider.GetRequiredService<UpdateEmployee>().Execute(args);
             break;
         case "-delete":
-            await serviceProvider.GetRequiredService<DeleteEmployee>().Execute(args);
+            await provider.GetRequiredService<DeleteEmployee>().Execute(args);
             break;
         case "-get":
-            await serviceProvider.GetRequiredService<GetEmployee>().Execute(args);
+            await provider.GetRequiredService<GetEmployee>().Execute(args);
             break;
         case "-getall":
-            await serviceProvider.GetRequiredService<GetAllEmployees>().Execute(args);
+            await provider.GetRequiredService<GetAllEmployees>().Execute(args);
             break;
         default:
             Console.WriteLine("Unknown command");
