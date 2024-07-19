@@ -1,38 +1,32 @@
-﻿
-using Application.Base;
-using Infrastructure.EventSourcing;
+﻿using Domain.Entities;
+using Domain.Repositories;
 
-namespace Core.Domain.Aggregates;
+namespace Infrastructure.Repositories;
 
-public class Employee : AggregateRoot
+public class EmployeeRepository : IEmployeeRepository
 {
-    public int Id { get; private set; }
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public decimal SalaryPerHour { get; private set; }
-
-    private Employee() { }
-
-    public Employee(int id, string firstName, string lastName, decimal salaryPerHour)
+    public Task<Employee> GetByIdAsync(int id)
     {
-        ApplyChange(new EmployeeCreatedEvent(id, firstName, lastName, salaryPerHour));
+        throw new NotImplementedException();
     }
 
-    public void UpdateEmployee(string firstName)
+    public Task<IEnumerable<Employee>> GetAllAsync()
     {
-        ApplyChange(new EmployeeDataUpdatedEvent(Id, firstName));
+        throw new NotImplementedException();
     }
 
-    private void Apply(EmployeeCreatedEvent @event)
+    public Task<int> AddAsync(Employee employee)
     {
-        Id = @event.Id;
-        FirstName = @event.FirstName;
-        LastName = @event.LastName;
-        SalaryPerHour = @event.SalaryPerHour;
+        throw new NotImplementedException();
     }
 
-    private void Apply(EmployeeDataUpdatedEvent @event)
+    public Task UpdateAsync(Employee employee)
     {
-        FirstName = @event.FirstName;
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(int id)
+    {
+        throw new NotImplementedException();
     }
 }

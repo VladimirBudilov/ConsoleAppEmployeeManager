@@ -6,15 +6,13 @@ using MediatR;
 
 namespace Application.Handlers.CommandHandlers;
 
-public class AddEmployeeCommandHandler(IEmployeeRepository repository) : IRequestHandler<AddEmployeeCommand, EmployeeIdDto>
+public class AddEmployeeCommandHandler(IEmployeeRepository repository) : IRequestHandler<AddEmployeeCommand, EmployeeResultDto>
 {
-    public async Task<EmployeeIdDto> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<EmployeeResultDto> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
     {
-            var identifier = new Identifier(0);
-            var personalInfo = new PersonalInfo(request.FirstName, request.LastName);
-            var salary = new Salary(request.SalaryPerHour);
-            var employee = new Employee(identifier, personalInfo, salary);
+            
+            var employee = new Employee(0, request.FirstName, request.LastName, request.SalaryPerHour);
             var id= await repository.AddAsync(employee);
-            return new EmployeeIdDto { Id = id, Success = true, Message = "Employee added successfully."};
+            return new EmployeeResultDto { Id = id, Success = true, Message = "Employee added successfully."};
     }
 }

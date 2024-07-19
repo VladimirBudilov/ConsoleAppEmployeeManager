@@ -1,11 +1,23 @@
-﻿using MediatR;
+﻿using Application.Commands;
+using Application.Queries;
+using FluentValidation;
+using MediatR;
+using Presentation.Utilities;
+using Presentation.Utilities.Validators;
 
 namespace Presentation.Commands;
 
-public class GetAllEmployees(IMediator mediator) : IExecutable
+public class GetAllEmployees(
+    IMediator mediator,
+    ArgsCountValidator argsCountValidator,
+    IValidator<int> argsValidator) : IExecutable
 {
-    public Task Execute(string[] args)
+    public async Task Execute(string[] args)
     {
-        throw new NotImplementedException();
+        if (!argsCountValidator.Validate(args, 1)) return;
+
+        var command = new GetEmployeesQuery();
+        var result = await mediator.Send(command);
+        WriteLineHelper.ShowResult(result);
     }
 }

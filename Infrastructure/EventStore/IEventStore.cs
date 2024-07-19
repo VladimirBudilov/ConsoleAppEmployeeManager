@@ -1,5 +1,4 @@
-﻿
-using Application.Base;
+﻿using Application.Base;
 
 namespace Infrastructure.EventStore;
 

@@ -3,26 +3,28 @@
 //add DI to the project
 
 using System.Reflection;
+using Application.ServiceCollection;
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.Commands;
 using Presentation.Extensions;
 
 var services = new ServiceCollection();
-services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());    
-});
-services.AddCrudCommands();
+
+services.RegisterMediatrCommands();
+services.RegisterCommands();
+services.RegisterParsersAndValidators();
 var serviceProvider = services.BuildServiceProvider();
+
 
 try
 {
-    await RunApplication(args,serviceProvider);
+    await RunApplication(args, serviceProvider);
 }
 catch (Exception ex)
 {
     Console.WriteLine(ex.Message);
 }
+
 
 async Task RunApplication(string[] args, IServiceProvider serviceProvider)
 {
