@@ -9,12 +9,11 @@ namespace Presentation.Commands;
 
 public class GetAllEmployees(
     IMediator mediator,
-    ArgsCountValidator argsCountValidator,
-    IValidator<int> argsValidator) : IExecutable
+    ArgsCountValidator argsCountValidator) : IExecutable
 {
     public async Task Execute(string[] args)
     {
-        if (!argsCountValidator.Validate(args, 1)) return;
+        if (!argsCountValidator.Validate(args, (int)NumberOfArgs.GetAllEmployees)) return;
 
         var command = new GetEmployeesQuery();
         var result = await mediator.Send(command);

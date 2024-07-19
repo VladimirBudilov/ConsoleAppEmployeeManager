@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 
-public class ArgsValidator : AbstractValidator<Dictionary<string, string>>
+namespace Presentation.Utilities.Validators;
+
+public class ContentValidator : AbstractValidator<Dictionary<string, string>>
 {
-    public ArgsValidator()
+    public ContentValidator()
     {
         When(args => args.ContainsKey("FirstName"), () =>
         {

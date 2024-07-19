@@ -4,5 +4,11 @@ namespace Infrastructure.Data;
 
 public class JsonDataContext
 {
-    public DataStore store = new DataStore("G:\\CsharpProjects\\Emp\\Infrastructure\\Data\\DataStore.json");
+    public readonly DataStore Store;
+    
+    public JsonDataContext()
+    {
+        var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Data");
+        Store = new DataStore(path+"\\EmployeeDB.json");
+    }
 }

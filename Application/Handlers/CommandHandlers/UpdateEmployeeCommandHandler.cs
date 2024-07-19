@@ -6,17 +6,21 @@ using MediatR;
 
 namespace Application.Handlers.CommandHandlers;
 
-public class UpdateEmployeeCommandHandler(IEmployeeRepository repository) : IRequestHandler<UpdateEmployeeCommand,EmployeeResultDto>
+public class UpdateEmployeeCommandHandler(IEmployeeRepository repository)
+    : IRequestHandler<UpdateEmployeeCommand, ResultDto>
 {
-    public async Task<EmployeeResultDto> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<ResultDto> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
     {
-            var employee = await repository.GetByIdAsync(request.Id);
-            if (employee == null)
-            {
-                return new EmployeeResultDto { Id = request.Id, Success = false, Message = "Employee not found." };
-            }
-            employee.Update(request.FirstName, request.LastName, request.SalaryPerHour.GetValueOrDefault());
-            await repository.UpdateAsync(employee);
-            return new EmployeeResultDto { Id = request.Id, Success = true, Message = "Employee updated successfully."};
+        var employee = await repository.GetByIdAsync(request.Id);
+        if (employee == null)
+        {
+            return new ResultDto { Id = request.Id, Success = false, Message = "not found." };
+        }
+
+        employee.Update(request.FirstName, request.LastName, request.SalaryPerHour.GetValueOrDefault());
+        var isSuccess = await repository.UpdateAsync(employee);
+        return isSuccess
+            ? new ResultDto { Id = request.Id, Success = true, Message = "updated successfully." }
+            : new ResultDto { Id = request.Id, Success = true, Message = "not updated." };
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using System;
 using Application.DTOs;
+using Newtonsoft.Json;
 
 namespace Presentation.Utilities
 {
@@ -14,22 +15,19 @@ namespace Presentation.Utilities
             }
         }
 
-        public static void ShowResult(EmployeeResultDto result)
+        public static void ShowResult(ResultDto result)
         {
-            if (result.Success)
-                Console.WriteLine($"Employee with ID: {result.Id} added successfully.");
-            else
-                Console.WriteLine($"{result.Message}");
+                Console.WriteLine($"Employee {result.Id } {result.Message}");
         }
 
         public static void ShowResult(List<EmployeeDto> result)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(JsonConvert.SerializeObject(result));
         }
 
         public static void ShowResult(EmployeeDto result)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(result == null ? "Employee not found." : JsonConvert.SerializeObject(result));
         }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Commands;
 
-public class UpdateEmployeeCommand(int id, string firstName, string lastName, decimal? salaryPerHour) : IRequest<EmployeeResultDto>
+public class UpdateEmployeeCommand(int id, string firstName, string lastName, decimal? salaryPerHour) : IRequest<ResultDto>
 {
     public int Id { get; }= id;
     public string? FirstName { get; }= firstName;

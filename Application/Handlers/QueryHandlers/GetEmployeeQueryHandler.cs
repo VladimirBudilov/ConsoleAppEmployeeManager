@@ -1,7 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Queries;
 using AutoMapper;
-using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
 

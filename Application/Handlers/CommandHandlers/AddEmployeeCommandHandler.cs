@@ -6,13 +6,14 @@ using MediatR;
 
 namespace Application.Handlers.CommandHandlers;
 
-public class AddEmployeeCommandHandler(IEmployeeRepository repository) : IRequestHandler<AddEmployeeCommand, EmployeeResultDto>
+public class AddEmployeeCommandHandler(IEmployeeRepository repository) : IRequestHandler<AddEmployeeCommand, ResultDto>
 {
-    public async Task<EmployeeResultDto> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<ResultDto> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
     {
-            
-            var employee = new Employee(0, request.FirstName, request.LastName, request.SalaryPerHour);
-            var id= await repository.AddAsync(employee);
-            return new EmployeeResultDto { Id = id, Success = true, Message = "Employee added successfully."};
+        var employee = new Employee(0, request.FirstName, request.LastName, request.SalaryPerHour);
+        var id = await repository.AddAsync(employee);
+        return id >= 0
+        ? new ResultDto { Id = id, Success = true, Message = "added successfully." }
+        : new ResultDto { Id = id, Success = false, Message = "not added.(you have got invalid Id in response)" };
     }
 }

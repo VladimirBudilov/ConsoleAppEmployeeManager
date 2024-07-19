@@ -2,26 +2,21 @@
 using FluentValidation;
 using MediatR;
 using Presentation.Utilities;
+using Presentation.Utilities.Parsers;
 using Presentation.Utilities.Validators;
 
 namespace Presentation.Commands;
 
 public class AddEmployee(
     IMediator mediator,
-    ArgsParser parser,
-    ArgsCountValidator argsCountValidator,
-    IValidator<Dictionary<string, string>> argsValidator) : IExecutable
+    ContentParser parser,
+    CommandValidator validator) : IExecutable
 {
     public async Task Execute(string[] args)
     {
-        if (!argsCountValidator.Validate(args, 4)) return;
-        var parsedArgs = parser.ParseAndValidateBasic(args,out var firstName, out var lastName, out var salary);
-        var validationResult = await argsValidator.ValidateAsync(parsedArgs);
-        if (!validationResult.IsValid)
-        {
-            WriteLineHelper.ShowErrors(validationResult);
-            return;
-        }
+        var isValid = await validator.IsValidInput(args, (int)NumberOfArgs.AddEmployee, out var parsedArgs, false);
+        if (!isValid) return;
+        parser.GetContent(parsedArgs, out var firstName, out var lastName, out var salary);
         var command = new AddEmployeeCommand( firstName, lastName, salary);
         var result = await mediator.Send(command);
         WriteLineHelper.ShowResult(result);
