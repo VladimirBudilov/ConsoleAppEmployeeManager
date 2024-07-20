@@ -20,10 +20,10 @@ The application accepts command-line arguments to perform the following operatio
 
 - **Update an existing employee record**. You can update any field except `Id`:
 ```sh
--update Id:123 FirstName:Doe
+-update Id:1 FirstName:Doe
 ```
 ```sh
--update Id:123 Salary:1000000
+-update Id:1 Salary:1000000
 ```
 
 
