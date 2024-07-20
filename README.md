@@ -46,7 +46,7 @@ The application accepts command-line arguments to perform the following operatio
 
 2. **Navigate to the project directory**:
 ```sh
-    cd Presentation
+    cd ConsoleAppEmployeeManager/Presentation
 ```
 3. **Build the application**:
 ```sh

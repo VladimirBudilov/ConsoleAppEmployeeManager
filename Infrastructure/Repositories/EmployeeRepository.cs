@@ -39,6 +39,6 @@ public class EmployeeRepository(JsonDataContext context, IMapper mapper) : IEmpl
 
     public async Task<bool> DeleteAsync(int id)
     {
-        return await _employees.DeleteOneAsync(e => e.Id == 1);
+        return await _employees.DeleteOneAsync(e => e.Id == id);
     }
 }
