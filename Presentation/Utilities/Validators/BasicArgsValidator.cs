@@ -4,7 +4,7 @@ public class BasicArgsValidator
 {
     public bool IsValidRequiredKeys(Dictionary<string, string> parsedArgs)
     {
-        var requiredKeys = new List<string> {"Id", "FirstName", "LastName", "Salary" };
+        var requiredKeys = new List<string> { "Id", "FirstName", "LastName", "Salary" };
         var invalidKeys = parsedArgs.Where(key => !requiredKeys.Contains(key.Key)).ToList();
 
         if (invalidKeys.Count != 0)
@@ -16,7 +16,7 @@ public class BasicArgsValidator
         return true;
     }
 
-    public bool  IsValidKeysWithoutId(Dictionary<string, string> parsedArgs)
+    public bool IsValidKeysWithoutId(Dictionary<string, string> parsedArgs)
     {
         if (!parsedArgs.ContainsKey("FirstName") || !parsedArgs.ContainsKey("LastName") ||
             !parsedArgs.ContainsKey("Salary"))
@@ -53,7 +53,7 @@ public class BasicArgsValidator
             Console.WriteLine("Invalid id format.");
             return false;
         }
-        
+
         return true;
     }
 }

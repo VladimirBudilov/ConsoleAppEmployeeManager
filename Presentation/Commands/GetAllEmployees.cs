@@ -1,6 +1,4 @@
-﻿using Application.Commands;
-using Application.Queries;
-using FluentValidation;
+﻿using Application.Queries;
 using MediatR;
 using Presentation.Utilities;
 using Presentation.Utilities.Validators;

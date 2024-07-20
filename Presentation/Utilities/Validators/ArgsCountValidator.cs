@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Presentation.Utilities.Validators;
+﻿namespace Presentation.Utilities.Validators;
 
 public class ArgsCountValidator
 {

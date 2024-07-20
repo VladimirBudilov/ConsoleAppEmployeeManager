@@ -1,4 +1,5 @@
 ﻿using JsonFlatFileDataStore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Data;
 
@@ -8,7 +9,9 @@ public class JsonDataContext
     
     public JsonDataContext()
     {
-        var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Data");
-        Store = new DataStore(path+"\\EmployeeDB.json");
+        var parentDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;
+        var databaseDirectory = Path.Combine(parentDirectory, "Database");
+        var databasePath = Path.Combine(databaseDirectory, "EmployeeDB.json");
+        Store = new DataStore(databasePath);
     }
 }

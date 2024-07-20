@@ -17,7 +17,7 @@ namespace Presentation.Utilities
 
         public static void ShowResult(ResultDto result)
         {
-                Console.WriteLine($"Employee {result.Id } {result.Message}");
+            Console.WriteLine($"Employee {result.Id} {result.Message}");
         }
 
         public static void ShowResult(List<EmployeeDto> result)

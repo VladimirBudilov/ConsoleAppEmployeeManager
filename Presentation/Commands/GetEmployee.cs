@@ -1,6 +1,4 @@
-﻿using Application.Commands;
-using Application.Queries;
-using FluentValidation;
+﻿using Application.Queries;
 using MediatR;
 using Presentation.Utilities;
 using Presentation.Utilities.Parsers;
@@ -15,9 +13,9 @@ public class GetEmployee(
 {
     public async Task Execute(string[] args)
     {
-        var isValid = await validator.IsValidInput(args,(int)NumberOfArgs.GetEmployee, out var parsedArgs);
+        var isValid = await validator.IsValidInput(args, (int)NumberOfArgs.GetEmployee, out var parsedArgs);
         if (!isValid) return;
-        parser.GetContent(parsedArgs,out var id, out var _, out var _, out var _);
+        parser.GetContent(parsedArgs, out var id, out var _, out var _, out var _);
 
         var command = new GetEmployeeQuery(id);
         var result = await mediator.Send(command);

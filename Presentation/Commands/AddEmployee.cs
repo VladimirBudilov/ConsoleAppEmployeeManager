@@ -1,5 +1,4 @@
 ﻿using Application.Commands;
-using FluentValidation;
 using MediatR;
 using Presentation.Utilities;
 using Presentation.Utilities.Parsers;
@@ -17,7 +16,7 @@ public class AddEmployee(
         var isValid = await validator.IsValidInput(args, (int)NumberOfArgs.AddEmployee, out var parsedArgs, false);
         if (!isValid) return;
         parser.GetContent(parsedArgs, out var firstName, out var lastName, out var salary);
-        var command = new AddEmployeeCommand( firstName, lastName, salary);
+        var command = new AddEmployeeCommand(firstName, lastName, salary);
         var result = await mediator.Send(command);
         WriteLineHelper.ShowResult(result);
     }

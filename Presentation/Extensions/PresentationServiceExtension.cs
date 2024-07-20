@@ -30,7 +30,7 @@ public static class PresentationServiceExtension
         services.AddTransient<ContentParser>();
         services.AddTransient<ArgsCountValidator>();
         services.AddTransient<BasicArgsValidator>();
-        services.AddTransient<IValidator<Dictionary<string, string>>,ContentValidator>();
+        services.AddTransient<IValidator<Dictionary<string, string>>, ContentValidator>();
         services.AddTransient<CommandValidator>();
     }
 }

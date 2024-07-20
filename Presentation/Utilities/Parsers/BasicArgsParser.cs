@@ -9,5 +9,4 @@ public class BasicArgsParser
             .Where(split => split.Length == 2)
             .ToDictionary(split => split[0], split => split[1], StringComparer.OrdinalIgnoreCase);
     }
-
 }

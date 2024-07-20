@@ -8,7 +8,7 @@ public class ApplicationRunner
     public async Task Run(string[] args, IServiceProvider provider)
     {
         if (!ValidateArgs(args)) return;
-        
+
         switch (args[0])
         {
             case "-add":
@@ -31,13 +31,11 @@ public class ApplicationRunner
                 break;
         }
     }
-    
+
     private static bool ValidateArgs(string[] args)
     {
         if (args.Length != 0) return true;
         Console.WriteLine("No command provided");
         return false;
     }
-    
-    
 }

@@ -8,38 +8,38 @@ namespace Application.Tests;
 
 public class AddEmployeeCommandTests
 {
-    private readonly CommandFixture _fixture= new();
-
     [Fact]
-    public async Task AddEmployeeCommandHandler_ShouldReturnSuccessResult()
+    public async Task AddEmployeeCommandHandler_EmployeeWasAdded_ShouldReturnSuccessResult()
     {
         // Arrange
         var command = new Fixture().Create<AddEmployeeCommand>();
         var validId = 1;
-        _fixture.employeeRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Employee>())).ReturnsAsync(validId);
+        CommandFixture fixture= new();
+        fixture.employeeRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Employee>())).ReturnsAsync(validId);
         
         // Act
-        var result = await _fixture.SendAsync(command);
+        var result = await fixture.SendAsync(command);
         
         // Assert
         result.Success.Should().BeTrue();
-        _fixture.employeeRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Employee>()), Times.Once);
+        fixture.employeeRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Employee>()), Times.Once);
     }
 
 
     [Fact]
-    public async Task AddEmployeeCommandHandler_ShouldReturnFailResult()
+    public async Task AddEmployeeCommandHandler_EmployeeWasNotAdded_ShouldReturnFailResult()
     {
         // Arrange
         var command = new Fixture().Create<AddEmployeeCommand>();
         var invalidId = -1;
-        _fixture.employeeRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Employee>())).ReturnsAsync(invalidId);
+        CommandFixture fixture= new();
+        fixture.employeeRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Employee>())).ReturnsAsync(invalidId);
 
         // Act
-        var result = await _fixture.SendAsync(command);
+        var result = await fixture.SendAsync(command);
 
         // Assert
         result.Success.Should().BeFalse();
-        _fixture.employeeRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Employee>()), Times.Once);
+        fixture.employeeRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Employee>()), Times.Once);
     }
 }

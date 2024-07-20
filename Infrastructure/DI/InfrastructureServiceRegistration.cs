@@ -11,7 +11,7 @@ public static class InfrastructureServiceRegistration
     public static void RegisterInfrastructureServices(this IServiceCollection services)
     {
         services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-        services.AddTransient<JsonDataContext>();
+        services.AddSingleton<JsonDataContext>();
         services.AddAutoMapper(typeof(EmployeeDataModelProfile));
     }
 }

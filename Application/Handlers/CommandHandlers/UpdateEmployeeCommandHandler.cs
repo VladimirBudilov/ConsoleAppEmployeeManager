@@ -1,6 +1,5 @@
 ﻿using Application.Commands;
 using Application.DTOs;
-using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
 
@@ -17,7 +16,7 @@ public class UpdateEmployeeCommandHandler(IEmployeeRepository repository)
             return new ResultDto { Id = request.Id, Success = false, Message = "not found." };
         }
 
-        employee.Update(request.FirstName, request.LastName, request.SalaryPerHour.GetValueOrDefault());
+        employee.Update(request.FirstName, request.LastName, request.SalaryPerHour);
         var isSuccess = await repository.UpdateAsync(employee);
         return isSuccess
             ? new ResultDto { Id = request.Id, Success = true, Message = "updated successfully." }

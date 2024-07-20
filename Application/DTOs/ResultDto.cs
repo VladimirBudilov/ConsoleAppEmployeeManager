@@ -1,8 +1,8 @@
 ﻿namespace Application.DTOs;
 
-public class ResultDto
+public record ResultDto
 {
-    public int Id { get; set; }
-    public bool Success { get; set; }
-    public string Message { get; set; }
+    public int Id { get; init; }
+    public bool Success { get; init; }
+    public string Message { get; init; }
 }

@@ -23,6 +23,4 @@ public class ContentParser
         lastName = parsedArgs.ContainsKey("LastName") ? parsedArgs["LastName"] : null;
         salary = parsedArgs.ContainsKey("Salary") ? decimal.Parse(parsedArgs["Salary"]) : null;
     }
-    
-
 }
