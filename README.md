@@ -20,18 +20,21 @@ The application accepts command-line arguments to perform the following operatio
 
 - **Update an existing employee record**. You can update any field except `Id`:
 ```sh
--update Id:123 FirstName
+-update Id:123 FirstName:Doe
+```
+```sh
+-update Id:123 Salary:1000000
 ```
 
 
 - **Retrieve an employee record by `Id`**:  
 ```sh
-  -get Id:123
+  -get Id:1
   ```
 
 - **Delete an employee record by `Id`**:
  ```sh
-    -delete Id:123
+    -delete Id:1
 ```
 - **Retrieve all employee records**:
 ```sh
